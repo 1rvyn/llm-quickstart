@@ -1,0 +1,149 @@
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <header class="bg-white shadow-sm">
+        {{.Title}}
+    </header>
+    
+    
+    <style>
+        #network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    
+    
+        /*prevent scroll bar from showing mid animation*/
+        body {
+            overflow-x: hidden;
+            font-family: Inconsolata, monospace;
+        }
+        #tailor-made {
+            font-weight: bolder;
+        }
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+    
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+    
+    </style>
+    
+    <main class="flex-1 px-10 py-8">
+                <br>
+           <div>Speak directly to our quick-starter guide!</div>
+           <button id="ask">Send</button>
+           <input id="question" type="text" placeholder="Ask a question">
+
+              <div id="answer"></div>
+    
+        <canvas id="network-canvas"></canvas>
+    
+    </main>
+    
+    <script>
+        const canvas = document.getElementById("network-canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+    
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+    
+                if (this.size > 0.2) this.size -= 0.1;
+    
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+    
+            draw() {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+                ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+    
+        const nodes = [];
+        const numberOfNodes = (canvas.width * canvas.height) / 9000;
+    
+        for (let i = 0; i < numberOfNodes; i++) {
+            nodes.push(new Node());
+        }
+    
+        function connectNodes(nodes) {
+            nodes.forEach((node, index) => {
+                for (let i = index + 1; i < nodes.length; i++) {
+                    const otherNode = nodes[i];
+                    const distance = Math.hypot(node.x - otherNode.x, node.y - otherNode.y);
+    
+                    if (distance < 100) {
+                        ctx.lineWidth = 0.2;
+                        ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+                        ctx.beginPath();
+                        ctx.moveTo(node.x, node.y);
+                        ctx.lineTo(otherNode.x, otherNode.y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            });
+        }
+    
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+    
+            connectNodes(nodes);
+            requestAnimationFrame(animate);
+        }
+    
+        animate();
+    </script>
+
+<script src="/js/ask.js"></script>
+
+    
+    
+    
+    
+    
+    <footer>
+        
+    </footer>
+    </body>
+    

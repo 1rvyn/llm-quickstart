@@ -112,7 +112,7 @@ if __name__ == "__main__":
     load_dotenv()
 
     # Step 1: Parse PDFs
-    file_paths = ["../src/data/quick-sim.pdf", "../src/data/quick-sim2.pdf"]
+    file_paths = ["../src/data/quick-sim.pdf", "../src/data/quick-sim2.pdf", "../src/data/quickest-sim.pdf"]
     document_chunks = []
     for file_path in file_paths:
         raw_pages, metadata = parse_pdf(file_path)
