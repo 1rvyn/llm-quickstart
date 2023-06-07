@@ -10,3 +10,4 @@ chat-pdf/src/src/data/*.paraquet
 chat-pdf/src/src/data/*.pkl
 frontend/tmp
 chat-pdf/src/src/data/chroma/chroma-embeddings.parquet
+.idea

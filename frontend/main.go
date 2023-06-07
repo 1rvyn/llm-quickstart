@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/1rvyn/llm-quickstart/frontend/database"
 	"github.com/1rvyn/llm-quickstart/frontend/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
@@ -8,6 +9,8 @@ import (
 
 func main() {
 	// fiber app
+
+	database.ConnectDb()
 	engine := html.New("./views", ".html")
 
 	app := fiber.New(fiber.Config{
@@ -36,4 +39,5 @@ func main() {
 func setupRoutes(app *fiber.App) {
 	app.Get("/", routes.Home)
 	app.Post("/login", routes.Login)
+	app.Post("/register", routes.Register)
 }
