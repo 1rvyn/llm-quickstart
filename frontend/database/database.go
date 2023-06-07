@@ -35,7 +35,7 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 	log.Println("Running Migrations")
 
-	err = db.AutoMigrate(&models.User{})
+	err = db.AutoMigrate(&models.Users{})
 
 	if err != nil {
 		return
