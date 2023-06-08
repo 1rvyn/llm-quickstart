@@ -1,4 +1,4 @@
-FROM postgres:14
+FROM postgres:14.0-alpine
 
 ENV POSTGRES_USER="postgres" \
     POSTGRES_PASSWORD="postgres" \
