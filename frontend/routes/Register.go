@@ -20,6 +20,7 @@ func Register(c *fiber.Ctx) error {
 
 	hashedPassword := make(chan []byte) // channel to recieve the hashed password
 
+	// hash the inputted password and send it to the channel
 	go func() {
 		hashedPassword <- utils.HashPassword(registerData["password"], []byte(SALT))
 		close(hashedPassword)
@@ -36,7 +37,7 @@ func Register(c *fiber.Ctx) error {
 
 	// TODO: hash the password + send email verification
 
-	user := models.Users{
+	user := models.Accounts{
 		Username: registerData["username"],
 		Password: encryptedPassword,
 	}

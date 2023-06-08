@@ -1,10 +1,9 @@
 <body class="bg-gray-100 flex flex-col min-h-screen">
-    <link href="/css/main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
     <header class="bg-white shadow-sm">
-        {{.Title}}
+        {{ template "partials/header" . }}
     </header>
     
     
@@ -17,7 +16,6 @@
             height: 100%;
             z-index: -1;
         }
-    
     
         /*prevent scroll bar from showing mid animation*/
         body {

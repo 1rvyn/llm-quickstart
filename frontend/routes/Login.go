@@ -26,7 +26,7 @@ func Login(c *fiber.Ctx) error {
 	// hande login
 	fmt.Println("Login", loginData)
 
-	user := &models.Users{}
+	user := &models.Accounts{}
 
 	// get user from DB & check if the email exists + matches
 	if err := database.Database.Db.Where("username = ?", loginData["username"]).First(user).Error; err != nil {

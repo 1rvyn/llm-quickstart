@@ -8,9 +8,8 @@ import (
 )
 
 func main() {
-	// fiber app
 
-	database.ConnectDb()
+	database.ConnectDb() // connect to the database
 	engine := html.New("./views", ".html")
 
 	app := fiber.New(fiber.Config{
@@ -20,6 +19,9 @@ func main() {
 	app.Static("/", "./views/public")
 
 	app.Use(func(c *fiber.Ctx) error {
+		c.Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		c.Set("Pragma", "no-cache")
+		c.Set("Expires", "0")
 		c.Response().Header.Set("Access-Control-Allow-Origin", "*")
 
 		c.Response().Header.Set("Access-Control-Allow-Credentials", "true")
@@ -28,9 +30,6 @@ func main() {
 	})
 
 	setupRoutes(app)
-
-	// static files
-	app.Static("/", "./public")
 
 	// start server
 	app.Listen(":3000")
