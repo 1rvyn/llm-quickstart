@@ -37,7 +37,10 @@ func main() {
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/", routes.Home)
-	app.Post("/login", routes.Login)
-	app.Post("/register", routes.Register)
+	app.Get("/search", routes.SearchPage)
 	app.Get("/login", routes.LoginPage)
+	app.Get("/register", routes.RegisterPage)
+
+	app.Post("/api/login", routes.Login)
+	app.Post("/api/register", routes.Register)
 }
