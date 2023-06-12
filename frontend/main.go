@@ -41,6 +41,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/login", routes.LoginPage)
 	app.Get("/register", routes.RegisterPage)
 
+	app.Post("/api/search", routes.Search)
 	app.Post("/api/login", routes.Login)
 	app.Post("/api/register", routes.Register)
 }
