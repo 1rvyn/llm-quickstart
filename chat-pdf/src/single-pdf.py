@@ -67,16 +67,3 @@ if __name__ == "__main__":
     load_dotenv()
 
     app.run(host="127.0.0.1", threaded=True, port=5000)
-
-#   if source:
-#         source_str = ', '.join(str(doc) for doc in source)
-#         answer += f"\n\nYou can read about this on page {source_str} on our quick-start guide."
-
-
-# import requests
-
-# url = "http://127.0.0.1:5000/ask"
-# data = {"question": "how do i add crane?"}
-# headers = {"Content-Type": "application/json"}
-
-# response = requests.post(url, json=data, headers=headers)

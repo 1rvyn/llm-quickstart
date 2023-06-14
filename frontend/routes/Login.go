@@ -3,6 +3,7 @@ package routes
 import (
 	"bytes"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/1rvyn/llm-quickstart/frontend/database"
@@ -57,7 +58,7 @@ func Login(c *fiber.Ctx) error {
 
 			// TODO: Make a session and store it in redis with the users details
 			claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-				Issuer:    string(rune(user.ID)),
+				Issuer:    strconv.Itoa(int(user.ID)),
 				ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), //1 day
 			})
 

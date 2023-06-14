@@ -5,3 +5,5 @@ ENV POSTGRES_USER="postgres" \
     POSTGRES_DB="postgres"
 
 EXPOSE 5432
+
+# docker build -t work_db . --load

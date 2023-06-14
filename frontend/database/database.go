@@ -16,7 +16,7 @@ type Dbinstance struct {
 
 var host = "localhost" // "db" when docker-compose
 var port = "5432"
-var user = "irvyn" // "postgres" when docker-compose
+var user = "postgres" // "postgres" when docker-compose
 var password = "postgres"
 var dbname = "postgres"
 
@@ -35,7 +35,7 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 	log.Println("Running Migrations")
 
-	err = db.AutoMigrate(&models.Accounts{})
+	err = db.AutoMigrate(&models.Accounts{}, models.Question{})
 
 	if err != nil {
 		return
