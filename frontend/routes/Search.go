@@ -33,6 +33,7 @@ func Search(c *fiber.Ctx) error {
 
 	// extract the claims from the cookie
 
+	// TODO: Set and use a proper secret as a env variable
 	claims := jwt.MapClaims{}
 	token, err := jwt.ParseWithClaims(cookie, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil // replace "secret" with your own secret key (in login.go it is 'secret')
