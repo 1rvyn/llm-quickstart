@@ -9,23 +9,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/83e9aaac76.js" crossorigin="anonymous"></script>
 
-    <link href="/css/output.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/output.css?t=1337" type="text/css">
     <link href="/css/header.css" rel="stylesheet" type="text/css">
-    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/css/main.css?t=13333" rel="stylesheet" type="text/css">
 
 
 
     
-    <nav class="py-3">
-       
-        <ul id="header-ul" class="flex justify-between items-center max-w-4xl mx-auto">
-            
+    <nav class="py-3 flex items-center justify-center bg-white shadow">
+        <div class="container mx-auto px-6 md:px-12 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="/">
+                    <img src="/images/ron-sim.svg" alt="Rely logo" class="h-12 w-24 mr-3">
+                </a>
+            </div>
 
-        </ul>
-        <div class="border-2 border-white absolute top-0 left-0 p-2">
-            <img src="/images/rely-logo.jpeg" alt="Rely logo" class="h-12 w-12">
-        </div>  
+            <ul class="flex items-center justify-center">
+                <li>
+                    <a href="/search" class="mx-3 py-2 px-4 bg-blue-500 text-black font-semibold rounded-lg shadow-md hover:bg-blue-200">Search</a>
+                </li>
+                <li>
+                    <a href="/login" class="mx-3 py-2 px-4 bg-blue-500 text-black font-semibold rounded-lg shadow-md hover:bg-blue-200">Login</a>
+                </li>
+            </ul>
+        </div>
     </nav>
+    
 
 
 </header>

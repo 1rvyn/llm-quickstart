@@ -1,4 +1,5 @@
-FROM postgres:14.0-alpine
+# FROM postgres:14.0-alpine
+FROM arm64v8/postgres:14.0-alpine
 
 ENV POSTGRES_USER="postgres" \
     POSTGRES_PASSWORD="postgres" \

@@ -13,6 +13,8 @@ import (
 func Search(c *fiber.Ctx) error {
 	// parse the search query using the model
 
+	fmt.Println("A new search query just got asked")
+
 	var newQuestion models.Question
 
 	err := c.BodyParser(&newQuestion)
@@ -75,5 +77,6 @@ func Search(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"success": true,
 		"message": "Search successful",
+		"search":  "gggs",
 	})
 }

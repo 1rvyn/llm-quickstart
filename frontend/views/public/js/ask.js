@@ -6,7 +6,7 @@ $("#ask").on("click", function(event) {
     console.log($("#question").val())
     //send POST to 127.0.0.1:5000/ask
     $.ajax({
-        url: "http://127.0.0.1:5000/ask",
+        url: "api/search",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({
