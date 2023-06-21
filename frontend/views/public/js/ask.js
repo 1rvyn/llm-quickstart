@@ -14,6 +14,13 @@ document.querySelector('form').addEventListener('submit', function(event) {
     xhr.open("POST", "api/search", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
+    var answerDiv = document.querySelector('#answer');
+
+     // Show loading image/gif
+     if (answerDiv) {
+        answerDiv.innerHTML = '<img src="images/rely-logo.jpeg" alt="Loading...">';
+    }
+
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var json = JSON.parse(xhr.responseText);
@@ -23,7 +30,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             var answerDiv = document.querySelector('#answer');
             if (answerDiv) {
                 // assuming the response structure is {"output": "Answer: The answer is..."}
-                answerDiv.textContent = json.output; 
+                answerDiv.innerHTML = json.output; 
             }
         }
         else if (xhr.readyState == 4) {
@@ -31,7 +38,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             // If there's an "answer" div, display the error message there.
             var answerDiv = document.querySelector('#answer');
             if (answerDiv) {
-                answerDiv.textContent = "Error"; 
+                answerDiv.innerHTML = "Error"; 
             }
         }
     }

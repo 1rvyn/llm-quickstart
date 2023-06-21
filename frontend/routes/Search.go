@@ -95,7 +95,6 @@ func Search(c *fiber.Ctx) error {
 	newQuestion.Answer = out.String()
 
 	// add the question to the database
-
 	if err := database.Database.Db.Create(&newQuestion).Error; err != nil {
 		return err
 	}
