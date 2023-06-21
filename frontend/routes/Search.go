@@ -71,12 +71,6 @@ func Search(c *fiber.Ctx) error {
 
 	fmt.Println(newQuestion)
 
-	// add the question to the database
-
-	if err := database.Database.Db.Create(&newQuestion).Error; err != nil {
-		return err
-	}
-
 	// Use os/exec to run Python script
 	cmd := exec.Command("python3", "/Users/irvyn/work/chat-pdf/src/single-pdf.py")
 	cmd.Dir = "/Users/irvyn/work/chat-pdf/src" // <-- set the working directory here
@@ -95,6 +89,15 @@ func Search(c *fiber.Ctx) error {
 			"error":   err.Error(),
 			"stderr":  stderr.String(),
 		})
+	}
+
+	// add answer to newQuestion
+	newQuestion.Answer = out.String()
+
+	// add the question to the database
+
+	if err := database.Database.Db.Create(&newQuestion).Error; err != nil {
+		return err
 	}
 
 	return c.JSON(fiber.Map{
