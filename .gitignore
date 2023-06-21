@@ -17,3 +17,6 @@ frontend/postcss.config.js
 frontend/tailwind.config.js
 frontend/node_modules/.package-lock.json
 frontend/.air.toml
+src/data/*
+src/data/chroma/*
+.DS_Store

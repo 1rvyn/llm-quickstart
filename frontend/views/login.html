@@ -4,9 +4,12 @@
         {{ template "partials/header" . }}
     </header>
 
+    <div id = "answer">
+
+    </div>
     
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <p class="mb-6 bg-gray-100 shadow-md text-center">Please fill in this form to login.</p>
+        <p class="mb-6 bg-gray-100 text-center">Please login.</p>
 
         <div class="mb-4">
             
@@ -18,7 +21,7 @@
         </div>
 
         <div class="flex items-center justify-between">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id ="login-button" type="submit">
                 Login
             </button>
             <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/register">

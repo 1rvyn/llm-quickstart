@@ -1,142 +1,77 @@
-<body class="bg-gray-100 flex flex-col justify-center items-center min-h-screen">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<body class="bg-gray-100 flex flex-col items-center justify-start min-h-screen">
 
     <header class="bg-white z-10 shadow-md fixed top-0 left-0 w-full">
         {{ template "partials/header" . }}
     </header>
-    
-    
+
     <style>
-        #network-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        /* Add to your existing styles */
+        .tooltip {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
         }
-    
-        /*prevent scroll bar from showing mid animation*/
-        #tailor-made {
-            font-weight: bolder;
-        }
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-    
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-    
-    </style>
-       
-        <main class="px-10 py-8 text-center">
-            <div>Speak directly to our quick-starter guide!</div>
-            <div class="flex justify-center items-center mt-4">
-                <input id="question" type="text" placeholder="Ask a question" class="mr-4">
-                <button id="ask">Send</button>
-            </div>
-            <div id="answer" class="mt-4"></div>
 
-        </main>
-    
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; 
+            left: 50%; 
+            margin-left: -110px; 
+
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        </style>
     
 
-    <canvas id="network-canvas"></canvas>
+        <div class="max-w-xl mt-16" style="margin-top: 64px;"> 
+            <form class="mx-auto mt-10 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 relative" style="max-width: 600px; position: relative;">
+                <!--- A tooltip to warn users it will take sometime-->
+                <div class="tooltip">
+                    <img src="images/info.svg" width="24" height="24">
+                    <span class="tooltiptext">Searching may take 7± seconds to return an answer</span>
+                </div>
 
-    
-    <script>
-        const canvas = document.getElementById("network-canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    
-        class Node {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-            }
-    
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-    
-                if (this.size > 0.2) this.size -= 0.1;
-    
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-    
-            draw() {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-                ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-        }
-    
-        const nodes = [];
-        const numberOfNodes = (canvas.width * canvas.height) / 9000;
-    
-        for (let i = 0; i < numberOfNodes; i++) {
-            nodes.push(new Node());
-        }
-    
-        function connectNodes(nodes) {
-            nodes.forEach((node, index) => {
-                for (let i = index + 1; i < nodes.length; i++) {
-                    const otherNode = nodes[i];
-                    const distance = Math.hypot(node.x - otherNode.x, node.y - otherNode.y);
-    
-                    if (distance < 100) {
-                        ctx.lineWidth = 0.2;
-                        ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
-                        ctx.beginPath();
-                        ctx.moveTo(node.x, node.y);
-                        ctx.lineTo(otherNode.x, otherNode.y);
-                        ctx.stroke();
-                        ctx.closePath();
-                    }
-                }
-            });
-        }
-    
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-            nodes.forEach(node => {
-                node.update();
-                node.draw();
-            });
-    
-            connectNodes(nodes);
-            requestAnimationFrame(animate);
-        }
-    
-        animate();
-    </script>
+            <p class="mb-6 bg-gray-100 text-center">Speak directly to our starter guide!.</p>
 
-<script src="/js/ask.js"></script>
-
-    
-    <footer>
         
-    </footer>
-    </body>
-    
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="question"></label>
+                <div class="w-3/4 mx-auto"> 
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" 
+                    placeholder="How do I add a crane?" name="question" id="question" required>
+                </div>
+            </div>
+        
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id ="search" type="submit">
+                    Search
+                </button>
+            </div>
+        </form>
+        
+
+        <div id="answer" class="mx-auto my-6 p-4 border-2 border-yellow-400 rounded-xl text-center text-gray-700 text-xl" style="max-width: 100%; width: 90vw; overflow-y: auto;">
+            <p>Answer:</p>
+        </div>
+    </div>
+
+    <script src="js/ask.js"></script>
+
+    {{ template "partials/footer" .}}
+</body>

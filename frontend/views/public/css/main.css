@@ -3,6 +3,6 @@
 @import 'tailwindcss/utilities';
 
 body {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   font-family: Inconsolata, monospace;
 }

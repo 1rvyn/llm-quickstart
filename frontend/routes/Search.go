@@ -1,8 +1,11 @@
 package routes
 
 import (
+	"bytes"
 	"fmt"
+	"os/exec"
 	"strconv"
+	"strings"
 
 	"github.com/1rvyn/llm-quickstart/frontend/database"
 	"github.com/1rvyn/llm-quickstart/frontend/models"
@@ -74,9 +77,29 @@ func Search(c *fiber.Ctx) error {
 		return err
 	}
 
+	// Use os/exec to run Python script
+	cmd := exec.Command("python3", "/Users/irvyn/work/chat-pdf/src/single-pdf.py")
+	cmd.Dir = "/Users/irvyn/work/chat-pdf/src" // <-- set the working directory here
+	// cmd.Stdin = strings.NewReader(newQuestion.Question)            // Pass the question as an input to the script
+	cmd.Stdin = strings.NewReader(newQuestion.Question) // ask question
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &out    // Capture the output of the script
+	cmd.Stderr = &stderr // Capture the standard error output of the script
+	err = cmd.Run()
+	if err != nil {
+		fmt.Println(stderr.String())
+		return c.JSON(fiber.Map{
+			"success": false,
+			"message": "Error running Python script",
+			"error":   err.Error(),
+			"stderr":  stderr.String(),
+		})
+	}
+
 	return c.JSON(fiber.Map{
 		"success": true,
 		"message": "Search successful",
-		"search":  "gggs",
+		"output":  out.String(),
 	})
 }

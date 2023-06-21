@@ -1,25 +1,22 @@
 import os
+import sys
+from dotenv import load_dotenv
+
 from langchain.vectorstores.chroma import Chroma
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.schema import HumanMessage, AIMessage
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 
-app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type' 
-CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:3000", "Access-Control-Allow-Origin": "*"}})
-
+# Load the OPENAI_API_KEY from the environment
 load_dotenv()
-
+# Then use openai_api_key in your script where needed
 def make_chain():
     model = ChatOpenAI(
         model_name="gpt-3.5-turbo", 
         temperature="0",
-        # verbose=True
     )
+
     embedding = OpenAIEmbeddings()
 
     vector_store = Chroma(
@@ -32,18 +29,15 @@ def make_chain():
         model,
         retriever=vector_store.as_retriever(),
         return_source_documents=True,
-        # verbose=True,
     )
 
-chain = make_chain()
-chat_history = []
 
-@app.route('/ask', methods=['POST'])
-def ask():
+if __name__ == "__main__":
+    load_dotenv()
+    chain = make_chain()
+    chat_history = []
 
-    data = request.get_json()
-    question = data['question']
-    # question = request.form['question']
+    question = sys.stdin.read().strip()
 
     # Generate answer
     response = chain({"question": question, "chat_history": chat_history})
@@ -60,10 +54,5 @@ def ask():
     chat_history.append(HumanMessage(content=question))
     chat_history.append(AIMessage(content=answer))
 
-    # Return answer
-    return jsonify({'answer': answer, 'refrences': refrences})
-
-if __name__ == "__main__":
-    load_dotenv()
-
-    app.run(host="127.0.0.1", threaded=True, port=5000)
+    # Print answer
+    print(f': {answer}\nReferences: {refrences}\n')
