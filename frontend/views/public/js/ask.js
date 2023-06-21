@@ -18,7 +18,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
      // Show loading image/gif
      if (answerDiv) {
-        answerDiv.innerHTML = '<img src="images/rely-logo.jpeg" alt="Loading...">';
+        answerDiv.innerHTML = '<img class="loading-img" src="images/rely-logo.jpeg" alt="Loading...">';
     }
 
     xhr.onreadystatechange = function() {
