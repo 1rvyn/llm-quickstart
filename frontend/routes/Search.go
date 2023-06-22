@@ -60,26 +60,54 @@ func Search(c *fiber.Ctx) error {
 
 	// use the claims as needed
 
-	fmt.Println("The user's ID is", claims["iss"])
-
 	userID, err := strconv.Atoi(claims["iss"].(string))
 	if err != nil {
-		// handle error
 		fmt.Println(err)
+		return c.JSON(fiber.Map{
+			"success": false,
+			"message": "Error parsing user ID",
+			"error":   err.Error(),
+		})
 	}
 	newQuestion.UserID = uint(userID)
 
-	fmt.Println(newQuestion)
+	fmt.Println(newQuestion, "is the new question")
 
+	fmt.Println("aaaaaaaaaa")
+
+	// get the users userrole from their ID
+
+	var userAsking models.Accounts
+
+	// get the user
+
+	if err := database.Database.Db.Find(&userAsking, "id = ?", newQuestion.UserID).Error; err != nil {
+		fmt.Println(err)
+		return c.JSON(fiber.Map{
+			"success": false,
+			"message": "Error getting user",
+		})
+	}
+
+	version := strconv.Itoa(userAsking.UserRole)
+
+	// println("THE VERSION IS: ", version)
+
+	fmt.Println("VERSION IS | ", version, "userrole is: ", userAsking.UserRole)
 	// Use os/exec to run Python script
-	cmd := exec.Command("python3", "/Users/irvyn/work/chat-pdf/src/single-pdf.py")
+	cmd := exec.Command("python3", "/Users/irvyn/work/chat-pdf/src/single-pdf.py", version)
 	cmd.Dir = "/Users/irvyn/work/chat-pdf/src" // <-- set the working directory here
 	// cmd.Stdin = strings.NewReader(newQuestion.Question)            // Pass the question as an input to the script
-	cmd.Stdin = strings.NewReader(newQuestion.Question) // ask question
+
+	input := version + "|" + newQuestion.Question
+	cmd.Stdin = strings.NewReader(input)
+
+	// cmd.Stdin = strings.NewReader(newQuestion.Question) // ask question
 	var out bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &out    // Capture the output of the script
-	cmd.Stderr = &stderr // Capture the standard error output of the script
+
+	cmd.Stdout = &out       // Capture the output of the script
+	var stderr bytes.Buffer // Declare a buffer to capture the standard error output of the script
+	cmd.Stderr = &stderr    // Assign the buffer to the command's standard error output
 	err = cmd.Run()
 	if err != nil {
 		fmt.Println(stderr.String())

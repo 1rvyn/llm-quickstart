@@ -11,7 +11,7 @@ from langchain.schema import HumanMessage, AIMessage
 # Load the OPENAI_API_KEY from the environment
 load_dotenv()
 # Then use openai_api_key in your script where needed
-def make_chain():
+def make_chain(version):
     model = ChatOpenAI(
         model_name="gpt-3.5-turbo", 
         temperature="0",
@@ -19,11 +19,18 @@ def make_chain():
 
     embedding = OpenAIEmbeddings()
 
-    vector_store = Chroma(
-        collection_name="june-2023-quickstartsimulator",
-        embedding_function=embedding,
-        persist_directory="src/data/chroma",
-    )
+    if version == "0":
+        vector_store = Chroma(
+            collection_name="june-2023-quickstartsimulator",
+            embedding_function=embedding,
+            persist_directory="src/data/chroma",
+        )
+    elif version == "2":
+        vector_store = Chroma(
+            collection_name="june-2023-quickstartsimulator-2",
+            embedding_function=embedding,
+            persist_directory="src/data/chroma",
+        )
 
     return ConversationalRetrievalChain.from_llm(
         model,
@@ -33,8 +40,11 @@ def make_chain():
 
 
 if __name__ == "__main__":
+    print(f'All arguments received: {sys.argv}')  # This will print all arguments passed to your script
     load_dotenv()
-    chain = make_chain()
+    version = sys.argv[1]
+    chain = make_chain(version)
+
     chat_history = []
 
     question = sys.stdin.read().strip()
