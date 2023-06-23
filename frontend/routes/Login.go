@@ -15,7 +15,7 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-var SecretKey = "secret"
+var SecretKey = "salty"
 
 func Login(c *fiber.Ctx) error {
 	var loginData map[string]string
