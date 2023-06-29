@@ -1,8 +1,11 @@
 package models
 
+import "time"
+
 type Accounts struct {
-	ID       uint   `gorm:"primaryKey"`
-	Username string `gorm:"unique"`
-	Password []byte `gorm:"not null"`
-	UserRole int    `gorm:"default:0"`
+	ID        uint   `gorm:"primaryKey"`
+	Username  string `json:"Username" gorm:"unique;unique_index"`
+	Password  []byte
+	UserRole  int       `gorm:"default:0"`
+	CreatedAt time.Time `json:"created_at"`
 }

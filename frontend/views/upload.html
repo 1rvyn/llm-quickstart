@@ -1,0 +1,36 @@
+<body class="bg-gray-100 flex flex-col items-center justify-start min-h-screen">
+    <header class="bg-white z-10 shadow-md fixed top-0 left-0 w-full">
+        {{ template "partials/header" . }}
+    </header>
+
+    <div class="max-w-xl mt-16" style="margin-top: 64px;"> 
+        <form id="upload-form" class="mx-auto mt-10 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 relative" style="max-width: 600px; position: relative;">
+
+        <div class="mb-4"> 
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="file">Upload your file:</label> <!-- Added a label -->
+            <div class="w-3/4 mx-auto">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                type="file" id="file" name="file" multiple required>
+            </div>
+        </div>    
+
+        <div class="mb-4"> 
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="slider">Select a value:</label>
+            <div class="w-3/4 mx-auto">
+                <input class="slider" type="range" min="1" max="10" value="1" id="slider-id">
+                <p>Value: <span id="slider-value">1</span></p>
+            </div>
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Upload File's
+        </button>
+
+        </form>
+    </div>
+
+    <script src="/js/upload.js"></script>
+    <script src="/js/ask.js"></script>
+
+    {{ template "partials/footer" .}}
+</body>

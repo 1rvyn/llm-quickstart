@@ -20,3 +20,4 @@ frontend/.air.toml
 src/data/*
 src/data/chroma/*
 .DS_Store
+frontend/uploads/*

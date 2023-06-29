@@ -13,6 +13,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     xhr.open("POST", "api/search", true);
     xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.withCredentials = true; // include credentials in the request
 
     var answerDiv = document.querySelector('#answer');
 
