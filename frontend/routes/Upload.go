@@ -26,12 +26,13 @@ func Upload(c *fiber.Ctx) error {
 		if err != nil {
 			break
 		}
-
+		// /Users/irvyn/work/chat-pdf/src/src/data/chroma/1
 		// Create a unique file name
 		fileName := fmt.Sprintf("%s%s", uuid.New().String(), filepath.Ext(file.Filename))
-		filePath := fmt.Sprintf("/Users/irvyn/work/chat-pdf/src/src/data%s", fileName)
+		filePath := fmt.Sprintf("/Users/irvyn/work/chat-pdf/src/src/data/chroma/%s/%s", id, fileName)
 		// Save the file to disk
 		if err := c.SaveFile(file, filePath); err != nil {
+			fmt.Println(err)
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"message": "Server error",
 			})

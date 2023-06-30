@@ -58,9 +58,12 @@ func setupRoutes(app *fiber.App) {
 
 	admin := app.Group("/admin")
 	admin.Use(requireAdminAuth())
-	admin.Post("/api/ingest/:id", routes.Ingest)
+	// admin.Post("/api/ingest/:id", routes.Ingest)
 	admin.Get("/upload", routes.UploadPage)
 	admin.Post("/api/upload/:id", routes.Upload)
+	admin.Get("/api/foldercontents/:id", routes.FolderContents)
+	admin.Delete("/api/files", routes.DeleteFiles)
+
 }
 
 func checkCookieStatus() fiber.Handler {
