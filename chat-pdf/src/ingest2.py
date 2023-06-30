@@ -110,14 +110,17 @@ def text_to_docs(text: List[str], metadata: Dict[str, str]) -> List[Document]:
 
 if __name__ == "__main__":
     load_dotenv()
+    input_data = sys.stdin.read().strip()
+    collection_name, *file_paths = input_data.split('|')
+
+
 
     # Step 1: Parse PDFs
-    file_paths = ["../src/data/openai.pdf"]
+    
     document_chunks = []
     for file_path in file_paths:
         raw_pages, metadata = parse_pdf(file_path)
 
-        # Step 2: Create text chunks
         cleaning_functions = [
             merge_hyphenated_words,
             fix_newlines,
@@ -127,13 +130,14 @@ if __name__ == "__main__":
         document_chunks += text_to_docs(cleaned_text_pdf, metadata)
         print(cleaned_text_pdf)
 
+
     # Step 3 + 4: Generate embeddings and store them in DB
     embeddings = OpenAIEmbeddings()
     vector_store = Chroma.from_documents(
         document_chunks,
         embeddings,
-        collection_name="june-2023-quickstartsimulator-2",
-        persist_directory="src/data/chroma",
+        collection_name=f"june-2023-quickstartsimulator-{collection_name}",
+        persist_directory=f"src/data/chroma/{collection_name}",
     )
 
     # Save DB locally

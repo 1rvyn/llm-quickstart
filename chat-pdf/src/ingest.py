@@ -112,7 +112,7 @@ if __name__ == "__main__":
     load_dotenv()
 
     # Step 1: Parse PDFs
-    file_paths = ["../src/data/quick-sim.pdf", "../src/data/quick-sim2.pdf", "../src/data/quickest-sim.pdf"]
+    file_paths = ["/Users/irvyn/work/pdfs/quickest-sim.pdf", "/Users/irvyn/work/pdfs/quick-sim2.pdf", "/Users/irvyn/work/pdfs/quick-sim.pdf"]
     document_chunks = []
     for file_path in file_paths:
         raw_pages, metadata = parse_pdf(file_path)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         document_chunks,
         embeddings,
         collection_name="june-2023-quickstartsimulator",
-        persist_directory="src/data/chroma",
+        persist_directory="src/data/chroma/1",
     )
 
     # Save DB locally

@@ -23,7 +23,7 @@ def make_chain(version):
         vector_store = Chroma(
             collection_name="june-2023-quickstartsimulator",
             embedding_function=embedding,
-            persist_directory="src/data/chroma",
+            persist_directory="src/data/chroma/1",
         )
     elif version == "2":
         vector_store = Chroma(

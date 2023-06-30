@@ -30,17 +30,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-window.onload = function() {
-    // Get slider element
-    var slider = document.getElementById('slider-id');
-    // Get slider value display element
-    var sliderValue = document.getElementById('slider-value');
 
-    // Set initial value
-    sliderValue.textContent = slider.value;
 
-    // Update the displayed slider value whenever it changes
-    slider.oninput = function() {
-        sliderValue.textContent = this.value;
+    var radios = document.getElementsByName('value');
+    var valueParagraph = document.getElementById('radio-value');
+
+    for(var i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', function() {
+            valueParagraph.textContent = this.value;
+        });
     }
-}

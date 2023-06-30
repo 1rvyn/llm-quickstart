@@ -21,3 +21,8 @@ src/data/*
 src/data/chroma/*
 .DS_Store
 frontend/uploads/*
+pdfs/*.pdf
+chat-pdf/src/src/data/chroma/3/chroma-collections.parquet
+chat-pdf/src/src/data/chroma/*/*
+chat-pdf/src/chat-pdf/src/src/data/*
+chat-pdf/src/src/*.pdf

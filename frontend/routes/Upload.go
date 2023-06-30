@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/1rvyn/llm-quickstart/frontend/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 )
@@ -28,13 +29,14 @@ func Upload(c *fiber.Ctx) error {
 
 		// Create a unique file name
 		fileName := fmt.Sprintf("%s%s", uuid.New().String(), filepath.Ext(file.Filename))
+		filePath := fmt.Sprintf("/Users/irvyn/work/chat-pdf/src/src/data%s", fileName)
 		// Save the file to disk
-		if err := c.SaveFile(file, fmt.Sprintf("./uploads/%s", fileName)); err != nil {
+		if err := c.SaveFile(file, filePath); err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"message": "Server error",
 			})
 		}
-		result = append(result, fmt.Sprintf("File %s uploaded successfully.", file.Filename))
+		result = append(result, filePath)
 	}
 
 	// If no file was uploaded
@@ -44,10 +46,19 @@ func Upload(c *fiber.Ctx) error {
 		})
 	}
 
+	err := utils.StartIngest(result, id)
+	if err != nil {
+		// handle the error
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Error generating embeddings / ingesting files",
+		})
+	}
+
 	return c.JSON(fiber.Map{
 		"success": true,
-		"message": result,
+		"message": fmt.Sprintf("%d files uploaded successfully", len(result)),
 	})
+
 }
 
 // TODO: Make this add the uplaoded files to the ID folder

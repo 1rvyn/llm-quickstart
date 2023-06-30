@@ -18,7 +18,9 @@ func main() {
 	engine := html.New("./views", ".html")
 
 	app := fiber.New(fiber.Config{
-		Views: engine,
+		Views:     engine,
+		BodyLimit: 100 * 1024 * 1024, // 100 MB
+
 	})
 
 	app.Static("/", "./views/public")
