@@ -16,24 +16,16 @@
 
         <div class="mb-4"> 
             <label class="block text-gray-700 text-sm font-bold mb-2" for="radio-group">Select a value:</label>
-            <div class="w-3/4 mx-auto flex justify-between" id="radio-group">
-                <div class="w-1/2 pr-2">
-                    <label class="block"><input type="radio" name="value" value="1"> Tyrebagger</label>
-                    <label class="block"><input type="radio" name="value" value="2"> Abu Dhabi</label>
-                    <label class="block"><input type="radio" name="value" value="3"> USA 1</label>
-                    <label class="block"><input type="radio" name="value" value="4"> USA 2</label>
-                    <label class="block"><input type="radio" name="value" value="5"> AUS</label>
-                </div>
-                <div class="w-1/2 pl-2">
-                    <label class="block"><input type="radio" name="value" value="6"> Singapore</label>
-                    <label class="block"><input type="radio" name="value" value="7"> Sim 7</label>
-                    <label class="block"><input type="radio" name="value" value="8"> ADS Sim</label>
-                    <label class="block"><input type="radio" name="value" value="9"> SIM 9</label>
-                    <label class="block"><input type="radio" name="value" value="10"> Sim 10</label>
-                </div>
+            <div class="w-1/2 pr-2">
+                {{range .Labels}}
+                <label class="block"><input type="radio" name="value" value="{{.ID}}"> {{.Name}}</label>
+                {{end}}
             </div>
             <p>Value: <span id="radio-value">1</span></p>
         </div>
+
+       
+
 
         <div id="file-list" class="mt-4">
             <!-- Files will be populated here -->
@@ -49,6 +41,11 @@
 
         </form>
     </div>
+
+    <form id="add-label-form">
+        <input type="text" id="new-label" placeholder="Enter new simulator name">
+        <button type="submit">Add Sim</button>
+    </form>
 
     <script src="/js/upload.js"></script>
     <script src="/js/ask.js"></script>

@@ -1,17 +1,42 @@
-<body class="bg-black-100 flex flex-col min-h-screen">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
-
-    <header class="bg-white shadow-sm">
+    <header class="bg-white shadow-md p-6">
         {{ template "partials/header" . }}
     </header>
     
-    <p>Hello</p>
+    <main class="flex-grow container mx-auto mt-10">
+        <section class="text-center px-5">
+            <h1 class="text-4xl font-bold mb-10">Welcome to Our manual query site!</h1>
+            <p class="text-xl mb-10">
+               This site is useful for if you want to know something about the simulator, but you dont know where to look.
+            </p>
+        </section>
 
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" hidden>{{.Error}}</div>
-    <script src="/js/ask.js"></script>
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 p-5">
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+               
+                <div class="p-4">
+                    <h2 class="font-bold text-2xl mb-2">Information retrirval</h2>
+                    <p>An easy way to retrive information from Manuals</p>
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="font-bold text-2xl mb-2">Card Title</h2>
+                    <p>Card Content</p>
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="font-bold text-2xl mb-2">Card Title</h2>
+                    <p>Card Content</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        
-    {{ template "partials/footer" . }}
-
+    <footer class="bg-white shadow-md p-6">
+        {{ template "partials/footer" .}}
+    </footer>
+    
 </body>

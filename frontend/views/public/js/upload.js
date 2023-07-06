@@ -112,3 +112,28 @@ document.getElementById('upload-form').addEventListener('submit', function (even
             });
         });
     }
+
+    document.getElementById('add-label-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var newLabel = document.getElementById('new-label').value;
+        console.log(newLabel)
+        fetch('/admin/api/add-label', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ label: newLabel }),
+            credentials: 'include',
+        }).then(response => response.json())
+        .then(data => {
+            // Handle response from the server
+            if (data.success) {
+                // The label was added successfully. Reload the page to see the changes.
+                // location.reload();c
+                console.log(data)
+            } else {
+                // Something went wrong. Display an error message.
+                alert('An error occurred: ' + data.error);
+            }
+        });
+    });

@@ -63,6 +63,7 @@ func setupRoutes(app *fiber.App) {
 	admin.Post("/api/upload/:id", routes.Upload)
 	admin.Get("/api/foldercontents/:id", routes.FolderContents)
 	admin.Delete("/api/files", routes.DeleteFiles)
+	admin.Post("/api/add-label", routes.Label)
 
 }
 

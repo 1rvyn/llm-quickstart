@@ -29,7 +29,7 @@ def make_chain(version):
         vector_store = Chroma(
             collection_name="june-2023-quickstartsimulator-2",
             embedding_function=embedding,
-            persist_directory="src/data/chroma",
+            persist_directory="src/data/chroma/2",
         )
 
     return ConversationalRetrievalChain.from_llm(
